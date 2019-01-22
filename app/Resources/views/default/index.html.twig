@@ -3,6 +3,15 @@
 {% block body %}
   Hello world
   {{test}}
+  <br/>
+  {% if not value %}
+    {{ 'sosati' }}
+  {% endif %}
+<br>
+  {% for key,some_array in array %}
+    {{ some_array }}-{{ key }}<br/>
+
+{% endfor %}
 {% endblock %}
 
 {% block stylesheets %}
