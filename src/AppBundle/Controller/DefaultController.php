@@ -18,7 +18,7 @@ class DefaultController extends Controller
     {   $test='test';
         $array=[1,2,3];
         $value=false;
-        return $this->render('default/index.html.twig',['test'=>$test,'array'=>$array,'value'=>$value]);
+        return $this->render('@App/default/index.html.twig',['test'=>$test,'array'=>$array,'value'=>$value]);
     }
 
     /**
@@ -26,7 +26,7 @@ class DefaultController extends Controller
      */
     public function feedbackAction()
     {
-      return $this->render('default/feedback.html.twig');
+      return $this->render('@App/default/feedback.html.twig',['lol'=>321]);
 
     }
 }
