@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\FeedBackType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,18 +16,20 @@ class DefaultController extends Controller
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
-    {   $test='test';
-        $array=[1,2,3];
-        $value=false;
-        return $this->render('@App/default/index.html.twig',['test'=>$test,'array'=>$array,'value'=>$value]);
+    {
+        $test = 'test';
+        $array = [1, 2, 3];
+        $value = false;
+        return $this->render('@App/default/index.html.twig', ['test' => $test, 'array' => $array, 'value' => $value]);
     }
 
     /**
-     * @Route("/feedback", name="feedback") 
+     * @Route("/feedback", name="feedback")
      */
     public function feedbackAction()
     {
-      return $this->render('@App/default/feedback.html.twig',['lol'=>321]);
+        $form = $this->createForm(FeedBackType::class);
+        return $this->render('@App/default/feedback.html.twig', ['feedback_form' => $form->createView()]);
 
     }
 }
