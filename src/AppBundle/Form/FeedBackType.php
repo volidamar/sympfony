@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,8 +17,8 @@ class FeedBackType extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('message')
-            ->add('created');
+          //  ->add('message',TextType::class);
+          ->add('message');
     }
 
     /**

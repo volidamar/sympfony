@@ -2,8 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
+use AppBundle\Entity\FeedBack;
 use AppBundle\Form\FeedBackType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +28,37 @@ class DefaultController extends Controller
 
     /**
      * @Route("/feedback", name="feedback")
+     * @param Request $request
+     * @return Response
      */
-    public function feedbackAction()
+    public function feedbackAction(Request $request)
     {
+//        $q=$request->get('test');
+//
         $form = $this->createForm(FeedBackType::class);
+        $form->add('submit', SubmitType::class);
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() and $form->isValid()){
+            $feedBack = $form->getData();
+            $em=$this->getDoctrine()->getManager();//menedjer su6nosti
+            $em->persist($feedBack);// на подобии git add .
+            $em->flush();//git commit
+            $this->addFlash('success','Saved');
+           return  $this->redirectToRoute('feedback');
+        }
+
+
+
+        //        $feedBack=new FeedBack();
+//        $feedBack->setEmail('sosati@mail.ru');
+//        $feedBack->setName('SERII');
+//        $feedBack->setMessage('MESSAGE');
+//        $em=$this->getDoctrine()->getManager();
+//        $category=new Category();
+//        $category->setName('new_catergpru');
+//        $category->setActive('1');
         return $this->render('@App/default/feedback.html.twig', ['feedback_form' => $form->createView()]);
 
     }
