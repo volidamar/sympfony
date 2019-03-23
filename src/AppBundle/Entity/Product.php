@@ -38,7 +38,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
+     * @ORM\Column(name="description", type="text", nullable=true )
      */
     private $description;
 
@@ -48,7 +48,7 @@ class Product
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
      */
     private $category;
-    
+
     /**
      * @var bool
      *

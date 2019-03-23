@@ -2,9 +2,15 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\DBAL\EnumType;
+use AppBundle\DBAL\GenderType;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\FeedBack;
+use AppBundle\Entity\Product;
 use AppBundle\Form\FeedBackType;
+use AppBundle\Service\SerializeProductService;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Type;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,14 +24,33 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Connection $connection)
     {
+//        $q=$connection->fetchAll('select * from product');
+//print_r($q);
+        
+//        $em=$this->getDoctrine();
+//        $connection = $em->getConnection();
+        //$connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+//        Type::addType('enum','AppBundle\DBAL\EnumType');
+//        $connection->getDatabasePlatform()->registerDoctrineTypeMapping('EnumType', 'enum');
+
+
         $test = 'test';
         $array = [1, 2, 3];
         $value = false;
         return $this->render('@App/default/index.html.twig', ['test' => $test, 'array' => $array, 'value' => $value]);
     }
 
+
+    /**
+     * @Route("/memes/get-data",name="memes")
+     */
+    public function getDataAction()
+    {
+        
+
+    }
     /**
      * @Route("/feedback", name="feedback")
      * @param Request $request
@@ -41,6 +66,7 @@ class DefaultController extends Controller
 
 
         if($form->isSubmitted() and $form->isValid()){
+  
             $feedBack = $form->getData();
             $em=$this->getDoctrine()->getManager();//menedjer su6nosti
             $em->persist($feedBack);// на подобии git add .
@@ -50,15 +76,17 @@ class DefaultController extends Controller
         }
 
 
-
-        //        $feedBack=new FeedBack();
-//        $feedBack->setEmail('sosati@mail.ru');
-//        $feedBack->setName('SERII');
+//
+//                $feedBack=new FeedBack();
+//        $feedBack->setEmail('SLAVAPIDR@mail.ru');
+//        $feedBack->setName('eamato');
 //        $feedBack->setMessage('MESSAGE');
 //        $em=$this->getDoctrine()->getManager();
 //        $category=new Category();
 //        $category->setName('new_catergpru');
 //        $category->setActive('1');
+//        $em->persist($feedBack);// на подобии git add .
+//          $em->flush();//git commit
         return $this->render('@App/default/feedback.html.twig', ['feedback_form' => $form->createView()]);
 
     }
