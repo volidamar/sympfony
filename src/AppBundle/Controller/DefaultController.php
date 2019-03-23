@@ -26,6 +26,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Connection $connection)
     {
+        hui
 //        $q=$connection->fetchAll('select * from product');
 //print_r($q);
         
